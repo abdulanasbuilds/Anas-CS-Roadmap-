@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal CS Mastery Roadmap — Abdul Anas</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050508;
+    --surface: #0c0c14;
+    --surface2: #12121f;
+    --border: #1e1e2e;
+    --accent: #00ff88;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --accent4: #ef4444;
+    --accent5: #3b82f6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --glow: rgba(0,255,136,0.15);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content:'';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(0,255,136,0.1);
+    border: 1px solid rgba(0,255,136,0.3);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(32px, 7vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+
+  h1 .line1 { color: var(--text); display: block; }
+  h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent);
+    display: block;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 60px;
+  }
+
+  .stat {
+    flex: 1;
+    padding: 16px 12px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* PROGRESS TRACKER */
+  .progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 40px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .progress-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .progress-pct {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .progress-bar-bg {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  /* PHASE CARDS */
+  .phase {
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .phase:hover { border-color: rgba(0,255,136,0.3); }
+  .phase.active { border-color: var(--accent); }
+  .phase.completed { border-color: rgba(0,255,136,0.4); opacity: 0.8; }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--surface);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .phase-header:hover { background: var(--surface2); }
+
+  .phase-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .phase-meta { flex: 1; min-width: 0; }
+
+  .phase-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .phase-sub {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .phase-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .duration-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+
+  .chevron {
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-size: 12px;
+  }
+
+  .phase.open .chevron { transform: rotate(180deg); }
+
+  .phase-body {
+    display: none;
+    padding: 0 24px 24px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .phase.open .phase-body { display: block; }
+
+  /* STEP INSIDE PHASE */
+  .step {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .step-check {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 12px;
+  }
+
+  .step-check:hover { border-color: var(--accent); }
+  .step-check.done {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 900;
+  }
+
+  .step-name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .step-name.done-text { text-decoration: line-through; color: var(--muted); }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-left: 34px;
+    margin-bottom: 12px;
+  }
+
+  /* RESOURCES */
+  .resources {
+    margin-left: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .resource {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .resource:hover {
+    border-color: rgba(0,255,136,0.4);
+    background: var(--surface2);
+    transform: translateX(4px);
+  }
+
+  .resource-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .resource-info { flex: 1; min-width: 0; }
+
+  .resource-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+  }
+
+  .resource-detail {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .resource-tag {
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  .tag-free { background: rgba(0,255,136,0.1); color: var(--accent); }
+  .tag-cert { background: rgba(124,58,237,0.15); color: #a78bfa; }
+  .tag-lab { background: rgba(245,158,11,0.12); color: var(--accent3); }
+  .tag-book { background: rgba(59,130,246,0.12); color: var(--accent5); }
+  .tag-yt { background: rgba(239,68,68,0.12); color: var(--accent4); }
+
+  /* SKILLS GAINED */
+  .skills-gained {
+    margin-left: 34px;
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* PRO TIP */
+  .pro-tip {
+    margin-left: 34px;
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: rgba(245,158,11,0.05);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 3px 3px 0;
+    font-size: 12px;
+    color: #d4a843;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+  }
+
+  .pro-tip::before { content: '💡 PRO TIP: '; font-weight: 700; }
+
+  /* PHASE COLOR THEMES */
+  .p1 .phase-num { background: rgba(239,68,68,0.15); color: var(--accent4); border: 1px solid rgba(239,68,68,0.3); }
+  .p1 .duration-badge { background: rgba(239,68,68,0.1); color: var(--accent4); border: 1px solid rgba(239,68,68,0.2); }
+
+  .p2 .phase-num { background: rgba(245,158,11,0.15); color: var(--accent3); border: 1px solid rgba(245,158,11,0.3); }
+  .p2 .duration-badge { background: rgba(245,158,11,0.1); color: var(--accent3); border: 1px solid rgba(245,158,11,0.2); }
+
+  .p3 .phase-num { background: rgba(0,255,136,0.1); color: var(--accent); border: 1px solid rgba(0,255,136,0.3); }
+  .p3 .duration-badge { background: rgba(0,255,136,0.07); color: var(--accent); border: 1px solid rgba(0,255,136,0.2); }
+
+  .p4 .phase-num { background: rgba(59,130,246,0.15); color: var(--accent5); border: 1px solid rgba(59,130,246,0.3); }
+  .p4 .duration-badge { background: rgba(59,130,246,0.1); color: var(--accent5); border: 1px solid rgba(59,130,246,0.2); }
+
+  .p5 .phase-num { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
+  .p5 .duration-badge { background: rgba(124,58,237,0.1); color: #a78bfa; border: 1px solid rgba(124,58,237,0.2); }
+
+  .p6 .phase-num { background: rgba(236,72,153,0.15); color: #f472b6; border: 1px solid rgba(236,72,153,0.3); }
+  .p6 .duration-badge { background: rgba(236,72,153,0.1); color: #f472b6; border: 1px solid rgba(236,72,153,0.2); }
+
+  .p7 .phase-num { background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(124,58,237,0.15)); color: var(--accent); border: 1px solid rgba(0,255,136,0.4); }
+  .p7 .duration-badge { background: rgba(0,255,136,0.07); color: var(--accent); border: 1px solid rgba(0,255,136,0.2); }
+
+  /* TIMELINE LINE */
+  .phases-container { position: relative; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 48px 0 60px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  .footer-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  .footer-name span { color: var(--accent); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  @media (max-width: 600px) {
+    .stats-bar { flex-wrap: wrap; }
+    .stat { min-width: 50%; }
+    .phase-header { padding: 16px; gap: 12px; }
+    .phase-body { padding: 0 16px 20px; }
+    .phase-title { font-size: 15px; }
+    .phase-num { width: 36px; height: 36px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge">// ZERO TO PROFESSIONAL — FREE FOREVER</div>
+    <h1>
+      <span class="line1">Universal CS</span>
+      <span class="line2">Mastery Roadmap</span>
+    </h1>
+    <p class="subtitle">Computer Science · Software Engineering · AI · IT · Cybersecurity<br>
+    Built with Harvard, MIT, Google & Stanford. 100% free. Start today.</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num">7</span>
+      <span class="stat-label">Phases</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">40+</span>
+      <span class="stat-label">Courses</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">18mo</span>
+      <span class="stat-label">Full Path</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">$0</span>
+      <span class="stat-label">Total Cost</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Your Ceiling</span>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <span class="progress-title">// YOUR PROGRESS</span>
+      <span class="progress-pct" id="pct">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="bar"></div>
+    </div>
+  </div>
+
+  <div class="phases-container" id="phases">
+
+    <!-- PHASE 1 -->
+    <div class="phase p1" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">01</div>
+        <div class="phase-meta">
+          <div class="phase-title">Computational Thinking & CS Foundations</div>
+          <div class="phase-sub">HARVARD · MIT · STANFORD // START HERE TODAY</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">1–3 MONTHS</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Harvard CS50x — Intro to Computer Science</div>
+          </div>
+          <p class="step-desc">The single best entry point in the world. Teaches C, Python, SQL, algorithms, and web basics. You get a REAL Harvard certificate free. Do every problem set — don't skip. This alone puts you ahead of most.</p>
+          <div class="resources">
+            <a class="resource" href="https://cs50.harvard.edu/x" target="_blank">
+              <div class="resource-icon" style="background:rgba(171,0,0,0.15)">🎓</div>
+              <div class="resource-info">
+                <span class="resource-name">CS50x — cs50.harvard.edu/x</span>
+                <span class="resource-detail">Submit assignments → Free Harvard Certificate</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+            <a class="resource" href="https://youtube.com/@cs50" target="_blank">
+              <div class="resource-icon" style="background:rgba(239,68,68,0.1)">▶</div>
+              <div class="resource-info">
+                <span class="resource-name">CS50 YouTube Channel</span>
+                <span class="resource-detail">All lectures free on YouTube — no sign-up needed</span>
+              </div>
+              <span class="resource-tag tag-yt">YOUTUBE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">C</span>
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">SQL</span>
+            <span class="skill-chip">Algorithms</span>
+            <span class="skill-chip">Data Structures</span>
+            <span class="skill-chip">HTML/CSS/JS</span>
+            <span class="skill-chip">Problem Solving</span>
+          </div>
+          <div class="pro-tip">Do this on cs50.harvard.edu directly — NOT edX. Submit all 9 problem sets + final project to earn your free Harvard certificate. Takes about 6-8 weeks at 2hrs/day.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">MIT 6.001 — Structure & Interpretation of Computer Programs</div>
+          </div>
+          <p class="step-desc">MIT's original CS bible, free on MIT OpenCourseWare. Covers deep computational thinking, recursion, and how software REALLY works at its core. Run alongside CS50x in weeks 6-12.</p>
+          <div class="resources">
+            <a class="resource" href="https://ocw.mit.edu/courses/6-001-structure-and-interpretation-of-computer-programs-spring-2005/" target="_blank">
+              <div class="resource-icon" style="background:rgba(165,42,42,0.15)">🏛</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT OCW 6.001</span>
+                <span class="resource-detail">Free lectures, notes, problem sets — no login needed</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Recursion</span>
+            <span class="skill-chip">Abstraction</span>
+            <span class="skill-chip">Functional Programming</span>
+            <span class="skill-chip">Lisp/Scheme</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Stanford CS101 — How Computers Work</div>
+          </div>
+          <p class="step-desc">Short and essential. Explains how hardware and software connect. Great mental model before diving deeper.</p>
+          <div class="resources">
+            <a class="resource" href="https://web.stanford.edu/class/cs101/" target="_blank">
+              <div class="resource-icon" style="background:rgba(139,0,0,0.12)">📐</div>
+              <div class="resource-info">
+                <span class="resource-name">Stanford CS101</span>
+                <span class="resource-detail">Free online — all materials accessible</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Binary</span>
+            <span class="skill-chip">Memory</span>
+            <span class="skill-chip">Hardware Basics</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase p2" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">02</div>
+        <div class="phase-meta">
+          <div class="phase-title">Programming Mastery & Software Engineering</div>
+          <div class="phase-sub">MIT · GOOGLE · OPEN SOURCE</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">2–4 MONTHS</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">MIT 6.0001 & 6.0002 — Python for Science & Engineering</div>
+          </div>
+          <p class="step-desc">MIT's Python series. 6.0001 is intro, 6.0002 is computational thinking and data science. Together they take you from Python beginner to someone who can solve real engineering problems with code.</p>
+          <div class="resources">
+            <a class="resource" href="https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/" target="_blank">
+              <div class="resource-icon" style="background:rgba(245,158,11,0.12)">🐍</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT OCW 6.0001 — Python Intro</span>
+                <span class="resource-detail">Free lectures + problem sets on OCW</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://ocw.mit.edu/courses/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/" target="_blank">
+              <div class="resource-icon" style="background:rgba(245,158,11,0.12)">📊</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT OCW 6.0002 — Computational Thinking</span>
+                <span class="resource-detail">Data science + simulation using Python</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Python Advanced</span>
+            <span class="skill-chip">OOP</span>
+            <span class="skill-chip">Data Analysis</span>
+            <span class="skill-chip">NumPy</span>
+            <span class="skill-chip">Matplotlib</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">The Odin Project — Full Stack Web Development</div>
+          </div>
+          <p class="step-desc">The most complete free coding curriculum on the internet. HTML, CSS, JavaScript, React, NodeJS, databases. Built by developers for developers. You build real projects throughout. This turns you into a software engineer who ships things.</p>
+          <div class="resources">
+            <a class="resource" href="https://www.theodinproject.com" target="_blank">
+              <div class="resource-icon" style="background:rgba(245,158,11,0.12)">⚡</div>
+              <div class="resource-info">
+                <span class="resource-name">The Odin Project — theodinproject.com</span>
+                <span class="resource-detail">Full stack path — JavaScript OR Ruby tracks</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">HTML/CSS</span>
+            <span class="skill-chip">JavaScript</span>
+            <span class="skill-chip">React</span>
+            <span class="skill-chip">NodeJS</span>
+            <span class="skill-chip">Git</span>
+            <span class="skill-chip">Databases</span>
+            <span class="skill-chip">REST APIs</span>
+          </div>
+          <div class="pro-tip">Do JavaScript track (not Ruby). Every project should go on your GitHub. This is what you show scholarship committees as evidence of your self-teaching.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">MIT 6.006 — Algorithms & Data Structures</div>
+          </div>
+          <p class="step-desc">The real algorithms course used at MIT. Sorting, searching, graphs, dynamic programming. Harder than CS50 but this is what separates amateur coders from professional engineers. Take after CS50x.</p>
+          <div class="resources">
+            <a class="resource" href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/" target="_blank">
+              <div class="resource-icon" style="background:rgba(245,158,11,0.1)">🔢</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT OCW 6.006 — Introduction to Algorithms</span>
+                <span class="resource-detail">Lectures, recitations, problem sets — all free</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Sorting Algorithms</span>
+            <span class="skill-chip">Trees/Graphs</span>
+            <span class="skill-chip">Dynamic Programming</span>
+            <span class="skill-chip">Big O Notation</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase p3" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">03</div>
+        <div class="phase-meta">
+          <div class="phase-title">IT, Systems & Networking</div>
+          <div class="phase-sub">GOOGLE · CISCO · LINUX FOUNDATION</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">1–2 MONTHS</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Google IT Support Professional Certificate</div>
+          </div>
+          <p class="step-desc">Created by Google. Covers networking, operating systems, system administration, security, and IT support. This is the industry-recognized certificate that gets people IT jobs. Apply for Financial Aid on Coursera — usually approved in 15 days for free.</p>
+          <div class="resources">
+            <a class="resource" href="https://www.coursera.org/professional-certificates/google-it-support" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🔧</div>
+              <div class="resource-info">
+                <span class="resource-name">Google IT Support Certificate — Coursera</span>
+                <span class="resource-detail">Apply for Financial Aid → 100% free for you</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Networking</span>
+            <span class="skill-chip">Linux</span>
+            <span class="skill-chip">Windows Admin</span>
+            <span class="skill-chip">Troubleshooting</span>
+            <span class="skill-chip">Cloud Basics</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Linux Foundation — Intro to Linux (LFS101)</div>
+          </div>
+          <p class="step-desc">Linux is the OS of every server, cloud platform, and AI system on earth. You MUST know it. This free course from the Linux Foundation teaches the command line, file systems, and shell scripting.</p>
+          <div class="resources">
+            <a class="resource" href="https://training.linuxfoundation.org/training/introduction-to-linux/" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🐧</div>
+              <div class="resource-info">
+                <span class="resource-name">LFS101 — Introduction to Linux</span>
+                <span class="resource-detail">Free on edX from Linux Foundation</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://youtube.com/@NetworkChuck" target="_blank">
+              <div class="resource-icon" style="background:rgba(239,68,68,0.1)">▶</div>
+              <div class="resource-info">
+                <span class="resource-name">NetworkChuck YouTube</span>
+                <span class="resource-detail">Best free Linux + networking labs on YouTube</span>
+              </div>
+              <span class="resource-tag tag-yt">YOUTUBE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Bash</span>
+            <span class="skill-chip">Shell Scripting</span>
+            <span class="skill-chip">File Systems</span>
+            <span class="skill-chip">Permissions</span>
+            <span class="skill-chip">SSH</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Cisco Networking Academy — Networking Basics</div>
+          </div>
+          <p class="step-desc">Free from Cisco. Covers TCP/IP, DNS, HTTP, routers, switches, firewalls. How the internet actually works under the hood. Essential knowledge for both cybersecurity and software engineering.</p>
+          <div class="resources">
+            <a class="resource" href="https://www.netacad.com/courses/networking-basics" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🌐</div>
+              <div class="resource-info">
+                <span class="resource-name">Cisco NetAcad — Networking Basics</span>
+                <span class="resource-detail">Free registration → free certificate on completion</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">TCP/IP</span>
+            <span class="skill-chip">DNS</span>
+            <span class="skill-chip">HTTP/HTTPS</span>
+            <span class="skill-chip">Firewalls</span>
+            <span class="skill-chip">Subnetting</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase p4" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">04</div>
+        <div class="phase-meta">
+          <div class="phase-title">Cybersecurity — Offense & Defense</div>
+          <div class="phase-sub">ISC2 · TRYHACKME · HARVARD · GOOGLE</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">3–5 MONTHS</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">ISC2 Certified in Cybersecurity (CC) — Free Certification</div>
+          </div>
+          <p class="step-desc">ISC2 is the world's leading cybersecurity certification body (they make the famous CISSP). Their entry-level CC certification is currently FREE — training AND exam. This is a professional credential from the top cybersecurity organization on earth. Do this first in Phase 4.</p>
+          <div class="resources">
+            <a class="resource" href="https://www.isc2.org/certifications/cc" target="_blank">
+              <div class="resource-icon" style="background:rgba(59,130,246,0.12)">🛡</div>
+              <div class="resource-info">
+                <span class="resource-name">ISC2 Certified in Cybersecurity (CC)</span>
+                <span class="resource-detail">Free course + free exam — professional certification</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Security Principles</span>
+            <span class="skill-chip">Access Control</span>
+            <span class="skill-chip">Incident Response</span>
+            <span class="skill-chip">Network Security</span>
+          </div>
+          <div class="pro-tip">This is one of the most valuable free opportunities in tech RIGHT NOW. ISC2 made it free to grow the cybersecurity community. Register today at isc2.org/certifications/cc before this changes.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Google Cybersecurity Professional Certificate</div>
+          </div>
+          <p class="step-desc">Google's own cybersecurity curriculum. 8 courses covering threat detection, SIEM tools, Python for security automation, and more. Apply for Financial Aid on Coursera. Industry-recognized certificate from Google.</p>
+          <div class="resources">
+            <a class="resource" href="https://www.coursera.org/professional-certificates/google-cybersecurity" target="_blank">
+              <div class="resource-icon" style="background:rgba(59,130,246,0.1)">🔐</div>
+              <div class="resource-info">
+                <span class="resource-name">Google Cybersecurity Certificate — Coursera</span>
+                <span class="resource-detail">Financial Aid available → free for qualifying students</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">SIEM Tools</span>
+            <span class="skill-chip">Threat Analysis</span>
+            <span class="skill-chip">Python Automation</span>
+            <span class="skill-chip">Log Analysis</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">TryHackMe — Hands-On Hacking Labs</div>
+          </div>
+          <p class="step-desc">The best gamified cybersecurity platform. Free tier gives you access to hundreds of real hacking labs run in your browser — no setup needed. Complete the "Pre-Security" and "Jr Penetration Tester" learning paths. This is how real security professionals practice.</p>
+          <div class="resources">
+            <a class="resource" href="https://tryhackme.com" target="_blank">
+              <div class="resource-icon" style="background:rgba(59,130,246,0.1)">💻</div>
+              <div class="resource-info">
+                <span class="resource-name">TryHackMe</span>
+                <span class="resource-detail">Free tier: Pre-Security → Jr Pen Tester paths</span>
+              </div>
+              <span class="resource-tag tag-lab">LAB</span>
+            </a>
+            <a class="resource" href="https://overthewire.org/wargames" target="_blank">
+              <div class="resource-icon" style="background:rgba(59,130,246,0.1)">⚔</div>
+              <div class="resource-info">
+                <span class="resource-name">OverTheWire Wargames</span>
+                <span class="resource-detail">Free Linux security challenges — start with Bandit</span>
+              </div>
+              <span class="resource-tag tag-lab">LAB</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Penetration Testing</span>
+            <span class="skill-chip">Web Hacking</span>
+            <span class="skill-chip">CTF Challenges</span>
+            <span class="skill-chip">Vulnerability Scanning</span>
+            <span class="skill-chip">Metasploit</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Harvard CS50 Cybersecurity — cs50.harvard.edu/cybersecurity</div>
+          </div>
+          <p class="step-desc">Harvard's dedicated cybersecurity course. Same quality as CS50x but focused on security. Cryptography, web security, authentication, privacy. Free Harvard certificate on completion.</p>
+          <div class="resources">
+            <a class="resource" href="https://cs50.harvard.edu/cybersecurity" target="_blank">
+              <div class="resource-icon" style="background:rgba(171,0,0,0.12)">🎓</div>
+              <div class="resource-info">
+                <span class="resource-name">CS50 Cybersecurity — Harvard</span>
+                <span class="resource-detail">Free Harvard certificate on completion</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Cryptography</span>
+            <span class="skill-chip">HTTPS/TLS</span>
+            <span class="skill-chip">Authentication</span>
+            <span class="skill-chip">Privacy</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase p5" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">05</div>
+        <div class="phase-meta">
+          <div class="phase-title">Mathematics for CS — The Engine of Everything</div>
+          <div class="phase-sub">MIT · HARVARD · 3BLUE1BROWN</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">2–3 MONTHS</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">MIT 18.01 & 18.06 — Calculus & Linear Algebra</div>
+          </div>
+          <p class="step-desc">You can't do real AI without these. Calculus powers neural network training (backpropagation). Linear algebra powers every machine learning model. These are the actual MIT courses — free on OpenCourseWare.</p>
+          <div class="resources">
+            <a class="resource" href="https://ocw.mit.edu/courses/18-01-single-variable-calculus-fall-2006/" target="_blank">
+              <div class="resource-icon" style="background:rgba(124,58,237,0.12)">∫</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT 18.01 — Single Variable Calculus</span>
+                <span class="resource-detail">Full course free on MIT OCW</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" target="_blank">
+              <div class="resource-icon" style="background:rgba(124,58,237,0.12)">⬡</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT 18.06 — Linear Algebra (Prof. Strang)</span>
+                <span class="resource-detail">Legendary course. Vectors, matrices, eigenvalues.</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://youtube.com/@3blue1brown" target="_blank">
+              <div class="resource-icon" style="background:rgba(124,58,237,0.1)">▶</div>
+              <div class="resource-info">
+                <span class="resource-name">3Blue1Brown — Visual Math</span>
+                <span class="resource-detail">Essence of Linear Algebra + Calculus series (free)</span>
+              </div>
+              <span class="resource-tag tag-yt">YOUTUBE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Calculus</span>
+            <span class="skill-chip">Linear Algebra</span>
+            <span class="skill-chip">Vectors</span>
+            <span class="skill-chip">Matrices</span>
+            <span class="skill-chip">Probability</span>
+          </div>
+          <div class="pro-tip">Your E-Maths background from SHS is a genuine advantage here. Use 3Blue1Brown videos FIRST to build visual intuition, then go deep with MIT OCW lectures.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Harvard Statistics 110 — Probability</div>
+          </div>
+          <p class="step-desc">Probability is the language of AI and machine learning. This is Harvard's actual statistics course, free on YouTube with all problem sets available. Professor Joe Blitzstein makes it surprisingly accessible.</p>
+          <div class="resources">
+            <a class="resource" href="https://projects.iq.harvard.edu/stat110/home" target="_blank">
+              <div class="resource-icon" style="background:rgba(171,0,0,0.12)">🎓</div>
+              <div class="resource-info">
+                <span class="resource-name">Harvard STAT 110 — Probability</span>
+                <span class="resource-detail">Free lectures + problem sets on Harvard's site</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Probability</span>
+            <span class="skill-chip">Bayes Theorem</span>
+            <span class="skill-chip">Statistical Thinking</span>
+            <span class="skill-chip">Distributions</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase p6" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">06</div>
+        <div class="phase-meta">
+          <div class="phase-title">Artificial Intelligence & Machine Learning</div>
+          <div class="phase-sub">STANFORD · MIT · HARVARD · DEEPLEARNING.AI</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">4–6 MONTHS</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Harvard CS50 AI with Python</div>
+          </div>
+          <p class="step-desc">The perfect first AI course. Builds on CS50x foundation. Covers search, knowledge, probability, machine learning, neural networks, and language. Free Harvard certificate. Start AI here.</p>
+          <div class="resources">
+            <a class="resource" href="https://cs50.harvard.edu/ai" target="_blank">
+              <div class="resource-icon" style="background:rgba(171,0,0,0.12)">🎓</div>
+              <div class="resource-info">
+                <span class="resource-name">CS50 AI — cs50.harvard.edu/ai</span>
+                <span class="resource-detail">Free Harvard certificate on completion</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Search Algorithms</span>
+            <span class="skill-chip">Knowledge Representation</span>
+            <span class="skill-chip">Machine Learning</span>
+            <span class="skill-chip">Neural Networks</span>
+            <span class="skill-chip">NLP Basics</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Stanford CS229 — Machine Learning (Andrew Ng)</div>
+          </div>
+          <p class="step-desc">The most famous ML course in the world. Andrew Ng at Stanford. This is what serious ML engineers study. Free on Stanford's YouTube channel and website. This alone is resume-worthy knowledge.</p>
+          <div class="resources">
+            <a class="resource" href="https://cs229.stanford.edu" target="_blank">
+              <div class="resource-icon" style="background:rgba(139,0,0,0.12)">🧠</div>
+              <div class="resource-info">
+                <span class="resource-name">Stanford CS229 — Machine Learning</span>
+                <span class="resource-detail">Lecture notes + videos free at cs229.stanford.edu</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">
+              <div class="resource-icon" style="background:rgba(236,72,153,0.1)">📚</div>
+              <div class="resource-info">
+                <span class="resource-name">Andrew Ng ML Specialization — Coursera</span>
+                <span class="resource-detail">Audit free OR apply Financial Aid for certificate</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Regression</span>
+            <span class="skill-chip">Classification</span>
+            <span class="skill-chip">Neural Nets</span>
+            <span class="skill-chip">SVMs</span>
+            <span class="skill-chip">Clustering</span>
+            <span class="skill-chip">scikit-learn</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">DeepLearning.AI — Deep Learning Specialization</div>
+          </div>
+          <p class="step-desc">5-course series by Andrew Ng specifically on deep learning — CNNs, RNNs, transformers. This is the curriculum behind modern AI products. Apply for Financial Aid on Coursera for free access + certificate.</p>
+          <div class="resources">
+            <a class="resource" href="https://www.coursera.org/specializations/deep-learning" target="_blank">
+              <div class="resource-icon" style="background:rgba(236,72,153,0.1)">🔬</div>
+              <div class="resource-info">
+                <span class="resource-name">Deep Learning Specialization — deeplearning.ai</span>
+                <span class="resource-detail">Financial Aid available → free certificate</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">CNNs</span>
+            <span class="skill-chip">RNNs</span>
+            <span class="skill-chip">Transformers</span>
+            <span class="skill-chip">TensorFlow</span>
+            <span class="skill-chip">Keras</span>
+            <span class="skill-chip">Computer Vision</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Microsoft AI for Beginners — GitHub Curriculum</div>
+          </div>
+          <p class="step-desc">Microsoft's full AI curriculum on GitHub. 24 lessons covering Neural Networks, NLP, Computer Vision, and more. Completely free, lab-based, and you can see all the code. Great practical complement to the theory.</p>
+          <div class="resources">
+            <a class="resource" href="https://github.com/microsoft/AI-For-Beginners" target="_blank">
+              <div class="resource-icon" style="background:rgba(236,72,153,0.1)">⚙</div>
+              <div class="resource-info">
+                <span class="resource-name">Microsoft AI-For-Beginners — GitHub</span>
+                <span class="resource-detail">24 lessons, free, open source, all code included</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">
+              <div class="resource-icon" style="background:rgba(236,72,153,0.1)">🤖</div>
+              <div class="resource-info">
+                <span class="resource-name">Microsoft Generative AI for Beginners</span>
+                <span class="resource-detail">18 lessons on LLMs, prompt engineering, RAG</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">LLMs</span>
+            <span class="skill-chip">Prompt Engineering</span>
+            <span class="skill-chip">RAG</span>
+            <span class="skill-chip">Generative AI</span>
+            <span class="skill-chip">Azure AI</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Fast.ai — Practical Deep Learning for Coders</div>
+          </div>
+          <p class="step-desc">The top-down approach to AI. You build real AI models first, then learn the math behind them. Used by people who go from zero to Kaggle competition winners. Free and completely practical. Perfect for vibe coders who want to BUILD with AI.</p>
+          <div class="resources">
+            <a class="resource" href="https://course.fast.ai" target="_blank">
+              <div class="resource-icon" style="background:rgba(236,72,153,0.08)">🚀</div>
+              <div class="resource-info">
+                <span class="resource-name">Fast.ai — Practical Deep Learning</span>
+                <span class="resource-detail">Free course + free book + free Jupyter notebooks</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">PyTorch</span>
+            <span class="skill-chip">fastai library</span>
+            <span class="skill-chip">Image Classification</span>
+            <span class="skill-chip">NLP Models</span>
+            <span class="skill-chip">Model Deployment</span>
+          </div>
+          <div class="pro-tip">Run Fast.ai alongside your Stanford CS229 theory. Theory from Stanford + practical from Fast.ai = unstoppable combination.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 7 -->
+    <div class="phase p7" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num">07</div>
+        <div class="phase-meta">
+          <div class="phase-title">Build, Deploy & Go Professional</div>
+          <div class="phase-sub">GITHUB · KAGGLE · PORTFOLIO // THE FINAL BOSS</div>
+        </div>
+        <div class="phase-right">
+          <span class="duration-badge">ONGOING</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Build & Publish 5 Real Projects on GitHub</div>
+          </div>
+          <p class="step-desc">No certificate beats a working project. Build one project per phase minimum. Deploy them live. Write README files explaining what you built, what problem it solves, and what tech you used. This becomes your professional portfolio.</p>
+          <div class="resources">
+            <a class="resource" href="https://pages.github.com" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🌐</div>
+              <div class="resource-info">
+                <span class="resource-name">GitHub Pages — Free Hosting</span>
+                <span class="resource-detail">Deploy your portfolio site free at github.io</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://vercel.com" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">▲</div>
+              <div class="resource-info">
+                <span class="resource-name">Vercel — Free App Deployment</span>
+                <span class="resource-detail">Deploy web apps + AI projects free</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+          <div class="pro-tip">Your 5 minimum projects: (1) Personal portfolio site, (2) Full-stack web app from Odin Project, (3) A cybersecurity writeup/tool, (4) An ML model trained on real data, (5) A small AI-powered app using an API.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">Kaggle — Real Data Science Competitions</div>
+          </div>
+          <p class="step-desc">The world's largest data science competition platform. Free. Complete their free micro-courses (Python, ML, Deep Learning) and enter beginner competitions. Kaggle rankings on your CV/scholarship application is something no other applicant has.</p>
+          <div class="resources">
+            <a class="resource" href="https://kaggle.com/learn" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🏆</div>
+              <div class="resource-info">
+                <span class="resource-name">Kaggle Learn — Free Micro-Courses</span>
+                <span class="resource-detail">Python, ML, SQL, DL — free certificates</span>
+              </div>
+              <span class="resource-tag tag-cert">FREE CERT</span>
+            </a>
+          </div>
+          <div class="skills-gained">
+            <span class="skill-chip">Data Cleaning</span>
+            <span class="skill-chip">Feature Engineering</span>
+            <span class="skill-chip">Model Competition</span>
+            <span class="skill-chip">Pandas</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-check" onclick="toggleCheck(event, this)"></div>
+            <div class="step-name">MIT OpenCourseWare — Advanced Electives (Pick Your Specialization)</div>
+          </div>
+          <p class="step-desc">At this point choose your deepest focus. MIT OCW has the full curriculum of the world's top CS school — free forever. Pick the path that matches where you want to go professionally.</p>
+          <div class="resources">
+            <a class="resource" href="https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🤖</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT 6.034 — Artificial Intelligence</span>
+                <span class="resource-detail">Deep AI theory — search, learning, reasoning</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">🔒</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT 6.858 — Computer Systems Security</span>
+                <span class="resource-detail">Advanced cybersecurity — MIT level</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+            <a class="resource" href="https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/" target="_blank">
+              <div class="resource-icon" style="background:rgba(0,255,136,0.08)">⚡</div>
+              <div class="resource-info">
+                <span class="resource-name">MIT 6.004 — Computation Structures</span>
+                <span class="resource-detail">How computers are built from transistors up</span>
+              </div>
+              <span class="resource-tag tag-free">FREE</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end phases -->
+
+</div><!-- end container -->
+
+<footer>
+  <div class="container">
+    <p class="footer-name">BUILT BY <span>ABDUL ANAS</span> // @abdulanasbuilds</p>
+  </div>
+</footer>
+
+<script>
+  function togglePhase(el) {
+    const body = el.querySelector('.phase-body');
+    if (!body) return;
+    const isOpen = el.classList.contains('open');
+    el.classList.toggle('open', !isOpen);
+  }
+
+  function toggleCheck(e, el) {
+    e.stopPropagation();
+    el.classList.toggle('done');
+    const stepName = el.closest('.step').querySelector('.step-name');
+    stepName.classList.toggle('done-text', el.classList.contains('done'));
+    el.textContent = el.classList.contains('done') ? '✓' : '';
+    updateProgress();
+    saveProgress();
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.step-check');
+    const done = document.querySelectorAll('.step-check.done');
+    const pct = Math.round((done.length / all.length) * 100);
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('bar').style.width = pct + '%';
+  }
+
+  function saveProgress() {
+    const checks = document.querySelectorAll('.step-check');
+    const state = Array.from(checks).map(c => c.classList.contains('done'));
+    try { localStorage.setItem('cs_roadmap_progress', JSON.stringify(state)); } catch(e) {}
+  }
+
+  function loadProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('cs_roadmap_progress'));
+      if (!saved) return;
+      const checks = document.querySelectorAll('.step-check');
+      checks.forEach((c, i) => {
+        if (saved[i]) {
+          c.classList.add('done');
+          c.textContent = '✓';
+          c.closest('.step').querySelector('.step-name').classList.add('done-text');
+        }
+      });
+    } catch(e) {}
+    updateProgress();
+  }
+
+  // Open first phase by default
+  document.querySelector('.phase').classList.add('open');
+
+  loadProgress();
+
+  // Animate bar on load
+  setTimeout(() => updateProgress(), 300);
+</script>
+</body>
+</html>
